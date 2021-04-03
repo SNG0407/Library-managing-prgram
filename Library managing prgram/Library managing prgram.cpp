@@ -37,7 +37,7 @@ int main()
 {
     _TagBook bookArr[BOOK_MAX] = {};
     int iBookNumber = 1;
-    int iBookcount = 0;
+    int iBookCount = 0;
     char strCurrentBookName[NAME_SIZE];
 
     while (true) {
@@ -76,14 +76,14 @@ int main()
             }
             cin.ignore(1024, '\n');
             cout << "Enter the name of your book : ";
-            cin.getline(bookArr[iBookNumber].strBookName, NAME_SIZE);
+            cin.getline(bookArr[iBookCount].strBookName, NAME_SIZE);
             cout << "Enter the rental fee of your book : ";
-            cin.getline(bookArr[iBookNumber].strBookFee, FEE_SIZE);
-            bookArr[iBookNumber].bAvailable = true;
-            bookArr[iBookNumber].iBookNumber = iBookNumber;
+            cin.getline(bookArr[iBookCount].strBookFee, FEE_SIZE);
+            bookArr[iBookCount].bAvailable = true;
+            bookArr[iBookCount].iBookNumber = iBookNumber;
 
             iBookNumber++;
-            iBookcount++;
+            iBookCount++;
 
             break;
 
@@ -98,13 +98,14 @@ int main()
         case MENU_LIST:
             system("cls");
             cout << "-------List of books-------" << endl;
-            for (int i = 0; i < iBookcount; i++) {
-                cout << "Book number : " << bookArr[iBookNumber].iBookNumber << endl;
-                cout << "Book name : " << bookArr[iBookNumber].strBookName << endl;
-                cout << "Book rent fee : " << bookArr[iBookNumber].strBookFee << endl;
-                if(bookArr[iBookNumber].bAvailable){
+            for (int i = 0; i < iBookCount; i++) {
+                cout << "Book number : " << bookArr[i].iBookNumber << endl;
+                cout << "Book name : " << bookArr[i].strBookName << endl;
+                cout << "Book rent fee : " << bookArr[i].strBookFee << endl;
+                if(bookArr[i].bAvailable){
                 cout << "Book available : Yes" << endl;
-                }else  cout << "Book available : No" << endl;
+                }else  cout << "Book available : No " << endl;
+                cout << endl << endl;
             }
             break;
 
