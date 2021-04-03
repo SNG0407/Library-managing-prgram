@@ -9,6 +9,7 @@
     Structure consists of name of book, Renting fee, Book number, Whether it's available or not 
 */
 #include <iostream>
+using namespace std;
 
 #define NAME_SIZE 32
 #define FEE_SIZE 16
@@ -32,13 +33,16 @@ enum MENU {
     MENU_EXIT
 };
 
-using namespace std;
+
 int main()
 {
     _TagBook bookArr[BOOK_MAX] = {};
     int iBookNumber = 1;
     int iBookCount = 0;
+    int iConfirmRenting;
     char strCurrentBookName[NAME_SIZE];
+    char strBookName[NAME_SIZE];
+
 
     while (true) {
         system("cls");
@@ -85,14 +89,63 @@ int main()
             iBookNumber++;
             iBookCount++;
 
+            cout << endl<< "Your resistering is done now. Thanks a lot" << endl;
+
             break;
 
         case MENU_RENTING:
+            system("cls");
             cout << "-------Renting books-------" << endl;
+            cin.ignore(1024, '\n');
+            cout << "Enter the name of your book : ";
+            cin.getline(strBookName, NAME_SIZE);
+            
+            for (int i = 0; i < iBookCount; i++) {
+                if (strcmp(strBookName, bookArr[i].strBookName) == 0) {
+                    if (bookArr[i].bAvailable) {
+                        cout << bookArr[i].strBookName << "  is available at the moment." << endl;
+                        cout << "Renting fee is " << bookArr[i].strBookFee << endl;
+                        cout << "If you want to rent this, enter 1 or 0   ";
+                        cin >> iConfirmRenting;
+                        //I will leave the cin error for later
+                        if (iConfirmRenting == 1) {
+                            cout << "Here you are. Thank you for renting this book" << endl;
+                            bookArr[i].bAvailable = false;
+                            break;
+                        }
+                        else {
+                            cout << "Thank you for visiting our Library" << endl;
+                            break;
+                        }
+                    }else{
+                        cout << "This book is not available at the moment." << endl;
+                        break;
+                    }
+                }
+                cout << "We don't have such a book you asked" << endl;
+            }
+               
+
             break;
 
         case MENU_RETURNING:
+            system("cls");
             cout << "-------Returning books-------" << endl;
+            cout << "What book would you like to return?" << endl;
+            cin >> strBookName;
+            
+            for (int i = 0; i < iBookCount; i++) {
+                
+                if (strcmp(strBookName, bookArr[i].strBookName) == 0) {
+                    if (bookArr[i].bAvailable) {
+                        cout << "We already have this book here. Are you sure you rented it here?" << endl;
+                    }
+                    else if (!bookArr[i].bAvailable) {
+                        cout << "Thank you for returning it. Have a good day!" << endl;
+                        bookArr[i].bAvailable = true;
+                    }
+                }
+            }
             break;
                   
         case MENU_LIST:
