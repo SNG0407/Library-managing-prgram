@@ -11,13 +11,14 @@
 #include <iostream>
 
 #define NAME_SIZE 32
+#define FEE_SIZE 16
 #define BOOK_MAX 10
 
 
 struct _TagBook
 {
     char strBookName[NAME_SIZE];
-    float fBookFee;
+    char strBookFee[FEE_SIZE];
     int iBookNumber;
     bool bAvailable;
 };
@@ -34,7 +35,7 @@ enum MENU {
 using namespace std;
 int main()
 {
-    _TagBook bookArr[BOOK_MAX];
+    _TagBook bookArr[BOOK_MAX] = {};
     int iBookNumber = 1;
     int iBookcount = 0;
     char strCurrentBookName[NAME_SIZE];
@@ -62,12 +63,28 @@ int main()
         switch (iMenu)
         {
         case MENU_NONE:
-
             break;
 
         case    MENU_RESISTER:
+            system("cls");
             cout << "-------Resister books-------" << endl;
-            bookArr->strBookName
+
+            //When the number of books is fully stucked
+            if (iBookNumber == BOOK_MAX + 1) {
+                cout <<"You have exceeded the maximum number of books that you can resister." << endl;
+                break;
+            }
+            cin.ignore(1024, '\n');
+            cout << "Enter the name of your book : ";
+            cin.getline(bookArr[iBookNumber].strBookName, NAME_SIZE);
+            cout << "Enter the rental fee of your book : ";
+            cin.getline(bookArr[iBookNumber].strBookFee, FEE_SIZE);
+            bookArr[iBookNumber].bAvailable = true;
+            bookArr[iBookNumber].iBookNumber = iBookNumber;
+
+            iBookNumber++;
+            iBookcount++;
+
             break;
 
         case MENU_RENTING:
@@ -79,14 +96,25 @@ int main()
             break;
                   
         case MENU_LIST:
+            system("cls");
             cout << "-------List of books-------" << endl;
+            for (int i = 0; i < iBookcount; i++) {
+                cout << "Book number : " << bookArr[iBookNumber].iBookNumber << endl;
+                cout << "Book name : " << bookArr[iBookNumber].strBookName << endl;
+                cout << "Book rent fee : " << bookArr[iBookNumber].strBookFee << endl;
+                if(bookArr[iBookNumber].bAvailable){
+                cout << "Book available : Yes" << endl;
+                }else  cout << "Book available : No" << endl;
+            }
             break;
 
         default:
-            continue;
+            cout << "You gave us the wrong one" << endl;
+            break;
         }
+        system("pause");
     }
-
+    
 
     return 0;
 }
