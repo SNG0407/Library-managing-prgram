@@ -89,7 +89,7 @@ int main()
             iBookNumber++;
             iBookCount++;
 
-            cout << endl<< "Your resistering is done now. Thanks a lot" << endl;
+            cout << endl << "Your resistering is done now. Thanks a lot" << endl << endl;
 
             break;
 
